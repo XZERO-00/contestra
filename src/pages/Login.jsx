@@ -31,7 +31,7 @@ const Login = () => {
       <div className="glass-panel" style={{ width: '100%', maxWidth: '400px', padding: '2.5rem 2rem' }}>
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <h2 className="heading-md">Sign back in</h2>
-          <p className="text-sm" style={{ marginTop: '0.25rem' }}>Welcome back to Contestra</p>
+          <p className="text-sm" style={{ marginTop: '0.25rem' }}>Welcome back to ContestHub</p>
         </div>
 
         {error && (

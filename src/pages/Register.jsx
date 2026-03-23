@@ -58,7 +58,7 @@ const Register = () => {
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <h2 className="heading-md">Create an account</h2>
           <p className="text-sm" style={{ marginTop: '0.25rem' }}>
-            Start your journey with Contestra
+            Start your journey with ContestHub
           </p>
         </div>
 

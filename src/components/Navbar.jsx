@@ -1,75 +1,112 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { LogOut, LayoutDashboard, Crown } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
+import { LogOut, LayoutDashboard, Sun, Moon, Menu, X } from 'lucide-react';
 
 const Navbar = () => {
   const { user, isAuthenticated, logout } = useAuth();
+  const { isDark, toggleTheme } = useTheme();
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
     navigate('/');
+    setMenuOpen(false);
   };
 
   return (
-      <nav style={{
-        position: 'sticky',
-        top: 0,
-        zIndex: 50,
-        background: 'var(--bg-glass)',
-      backdropFilter: 'blur(16px)',
-      borderBottom: '1px solid var(--border-subtle)',
-      padding: '0.875rem 0'
-    }}>
-      <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        
+    <nav className="navbar">
+      <div className="container navbar-inner">
+
         {/* Logo */}
-        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', transition: 'opacity 0.2s' }} onMouseOver={e => e.currentTarget.style.opacity = 0.8} onMouseOut={e => e.currentTarget.style.opacity = 1}>
-          <svg width="32" height="32" viewBox="0 0 100 100" fill="none">
-              <path d="M 75 25 A 35 35 0 1 0 75 75" stroke="var(--accent-primary)" strokeWidth="10" strokeLinecap="round" />
-              <circle cx="50" cy="50" r="8" fill="var(--accent-primary)" />
+        <Link to="/" className="nav-logo">
+          <svg width="32" height="28" viewBox="0 0 110 96" fill="none">
+            {/* Hub spokes */}
+            <circle cx="55" cy="48" r="9" fill="var(--accent)" />
+            <line x1="55" y1="6" x2="55" y2="39" stroke="var(--accent)" strokeWidth="7" strokeLinecap="round" />
+            <line x1="55" y1="57" x2="55" y2="90" stroke="var(--accent)" strokeWidth="7" strokeLinecap="round" />
+            <line x1="13" y1="48" x2="46" y2="48" stroke="var(--accent)" strokeWidth="7" strokeLinecap="round" />
+            <line x1="64" y1="48" x2="97" y2="48" stroke="var(--accent)" strokeWidth="7" strokeLinecap="round" />
+            <line x1="25" y1="18" x2="44" y2="38" stroke="var(--accent)" strokeWidth="5" strokeLinecap="round" opacity="0.55" />
+            <line x1="66" y1="58" x2="85" y2="78" stroke="var(--accent)" strokeWidth="5" strokeLinecap="round" opacity="0.55" />
+            <line x1="85" y1="18" x2="66" y2="38" stroke="var(--accent)" strokeWidth="5" strokeLinecap="round" opacity="0.55" />
+            <line x1="44" y1="58" x2="25" y2="78" stroke="var(--accent)" strokeWidth="5" strokeLinecap="round" opacity="0.55" />
           </svg>
-          <span className="heading-md" style={{ fontSize: '1.25rem', fontWeight: 700, letterSpacing: '-0.02em' }}>
-            Contestra
-          </span>
+          ContestHub
         </Link>
 
-        {/* Navigation Links */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        {/* Desktop Nav */}
+        <div className="nav-links-desktop" style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
           {!isAuthenticated ? (
             <>
-              <Link to="/login" className="btn btn-secondary">Sign in</Link>
-              <Link to="/register" className="btn btn-primary">
-                Sign Up
-              </Link>
+              <Link to="/login" className="nav-link">Sign In</Link>
+              <Link to="/register" className="btn btn-primary btn-sm">Get Started</Link>
             </>
           ) : (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              
-              <Link to={user.role === 'Host' ? '/host' : '/participant'} 
-                 style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--text-secondary)', fontSize: '0.9375rem', fontWeight: 500 }}
-                 onMouseOver={e => e.currentTarget.style.color = 'var(--text-primary)'} onMouseOut={e => e.currentTarget.style.color = 'var(--text-secondary)'} >
-                <LayoutDashboard size={16} />
-                <span>Dashboard</span>
+            <>
+              <Link
+                to={user?.role === 'Host' ? '/host' : '/participant'}
+                className="nav-link"
+                style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}
+              >
+                <LayoutDashboard size={15} /> Dashboard
               </Link>
-
-              <div style={{ width: '1px', height: '20px', background: 'var(--border-light)' }}></div>
-              
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <span className="text-sm">
-                  <span style={{ fontWeight: 500, color: 'var(--text-primary)' }}>{user.name ? user.name.split(' ')[0] : 'User'}</span>
-                </span>
-                
-                <button onClick={handleLogout} className="btn btn-secondary" style={{ padding: '0.4rem', borderRadius: 'var(--radius-sm)' }} title="Logout">
-                  <LogOut size={16} color="var(--text-secondary)" />
-                </button>
-              </div>
-
-            </div>
+              <span style={{ color: 'var(--text-muted)', fontSize: '0.875rem', fontWeight: 500 }}>
+                {user?.name?.split(' ')[0] || 'User'}
+              </span>
+              <button onClick={handleLogout} className="btn btn-outline btn-sm" title="Sign Out">
+                <LogOut size={15} /> Sign Out
+              </button>
+            </>
           )}
+
+          {/* Theme Toggle */}
+          <button className="theme-toggle" onClick={toggleTheme} title={isDark ? 'Switch to Light' : 'Switch to Dark'}>
+            {isDark ? <Sun size={17} /> : <Moon size={17} />}
+          </button>
         </div>
 
+        {/* Mobile Controls */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }} className="mobile-controls">
+          <button className="theme-toggle" onClick={toggleTheme} style={{ display: 'none' }}>
+            {isDark ? <Sun size={17} /> : <Moon size={17} />}
+          </button>
+          <button className="hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="Toggle menu">
+            {menuOpen ? <X size={22} color="var(--text-primary)" /> : <Menu size={22} color="var(--text-primary)" />}
+          </button>
+        </div>
+
+      </div>
+
+      {/* Mobile Menu */}
+      <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
+        {!isAuthenticated ? (
+          <>
+            <Link to="/login" className="nav-link" onClick={() => setMenuOpen(false)}>Sign In</Link>
+            <Link to="/register" className="btn btn-primary" onClick={() => setMenuOpen(false)}>Get Started</Link>
+          </>
+        ) : (
+          <>
+            <Link
+              to={user?.role === 'Host' ? '/host' : '/participant'}
+              className="nav-link"
+              onClick={() => setMenuOpen(false)}
+            >
+              Dashboard
+            </Link>
+            <button onClick={handleLogout} className="btn btn-outline btn-sm">
+              <LogOut size={15} /> Sign Out
+            </button>
+          </>
+        )}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-muted)', fontSize: '0.875rem' }}>
+          <button className="theme-toggle" onClick={toggleTheme}>
+            {isDark ? <Sun size={17} /> : <Moon size={17} />}
+          </button>
+          {isDark ? 'Dark Mode' : 'Light Mode'}
+        </div>
       </div>
     </nav>
   );

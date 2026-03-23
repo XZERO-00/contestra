@@ -3,53 +3,31 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
     return (
-        <footer style={{
-            width: '100%',
-            padding: '4rem 2rem 2rem 2rem',
-            background: 'var(--bg-tertiary)',
-            borderTop: '1px solid var(--border-light)',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            marginTop: '0'
-        }}>
-            <div style={{ maxWidth: '1000px', width: '100%', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '3rem', marginBottom: '3rem' }}>
-                <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
-                        <svg width="32" height="32" viewBox="0 0 100 100" fill="none">
-                            <path d="M 75 25 A 35 35 0 1 0 75 75" stroke="var(--accent-primary)" strokeWidth="10" strokeLinecap="round" />
-                            <circle cx="50" cy="50" r="8" fill="var(--accent-primary)" />
-                        </svg>
-                        <span style={{ fontSize: '1.25rem', fontWeight: 700 }}>Contestra</span>
-                    </div>
-                    <p className="text-sm text-muted">The definitive platform for modern event and contest registrations. Scalable, secure, and beautiful.</p>
-                </div>
-                
-                <div>
-                    <h4 style={{ fontWeight: 600, marginBottom: '1.5rem', color: 'var(--text-primary)' }}>Platform</h4>
-                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                        <li><Link to="/register" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.875rem', transition: 'color 0.2s' }} onMouseOver={e=>e.currentTarget.style.color='var(--accent-primary)'} onMouseOut={e=>e.currentTarget.style.color='var(--text-secondary)'}>Create Account</Link></li>
-                        <li><Link to="/login" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.875rem', transition: 'color 0.2s' }} onMouseOver={e=>e.currentTarget.style.color='var(--accent-primary)'} onMouseOut={e=>e.currentTarget.style.color='var(--text-secondary)'}>Host Sign In</Link></li>
-                        <li><Link to="/login" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.875rem', transition: 'color 0.2s' }} onMouseOver={e=>e.currentTarget.style.color='var(--accent-primary)'} onMouseOut={e=>e.currentTarget.style.color='var(--text-secondary)'}>Participant Dashboard</Link></li>
-                    </ul>
+        <footer className="footer">
+            <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.5rem' }}>
+
+                {/* Brand */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                    <svg width="24" height="24" viewBox="0 0 110 96" fill="none">
+                        <circle cx="55" cy="48" r="8" fill="var(--accent)" />
+                        <line x1="55" y1="8" x2="55" y2="40" stroke="var(--accent)" strokeWidth="7" strokeLinecap="round" />
+                        <line x1="55" y1="56" x2="55" y2="88" stroke="var(--accent)" strokeWidth="7" strokeLinecap="round" />
+                        <line x1="14" y1="48" x2="47" y2="48" stroke="var(--accent)" strokeWidth="7" strokeLinecap="round" />
+                        <line x1="63" y1="48" x2="96" y2="48" stroke="var(--accent)" strokeWidth="7" strokeLinecap="round" />
+                    </svg>
+                    <span style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)' }}>ContestHub</span>
                 </div>
 
-                <div>
-                    <h4 style={{ fontWeight: 600, marginBottom: '1.5rem', color: 'var(--text-primary)' }}>Legal & Info</h4>
-                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                        <li><Link to="/about" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.875rem', transition: 'color 0.2s' }} onMouseOver={e=>e.currentTarget.style.color='var(--accent-primary)'} onMouseOut={e=>e.currentTarget.style.color='var(--text-secondary)'}>About Us</Link></li>
-                        <li><Link to="/privacy-policy" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.875rem', transition: 'color 0.2s' }} onMouseOver={e=>e.currentTarget.style.color='var(--accent-primary)'} onMouseOut={e=>e.currentTarget.style.color='var(--text-secondary)'}>Privacy Policy</Link></li>
-                        <li><Link to="/terms-of-service" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.875rem', transition: 'color 0.2s' }} onMouseOver={e=>e.currentTarget.style.color='var(--accent-primary)'} onMouseOut={e=>e.currentTarget.style.color='var(--text-secondary)'}>Terms of Service</Link></li>
-                    </ul>
+                {/* Quick links */}
+                <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+                    <Link to="/register" className="nav-link" style={{ fontSize: '0.875rem' }}>Register</Link>
+                    <Link to="/login" className="nav-link" style={{ fontSize: '0.875rem' }}>Sign In</Link>
                 </div>
-            </div>
-            
-            <div style={{ width: '100%', maxWidth: '1000px', borderTop: '1px solid var(--border-subtle)', paddingTop: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <p className="text-sm text-muted">© {new Date().getFullYear()} Contestra. All rights reserved.</p>
-                <div style={{ display: 'flex', gap: '1rem' }}>
-                    <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'var(--border-light)' }} />
-                    <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'var(--border-light)' }} />
-                </div>
+
+                {/* Copyright */}
+                <p className="text-sm text-muted" style={{ borderTop: '1px solid var(--border)', paddingTop: '1.25rem', width: '100%', textAlign: 'center' }}>
+                    © {new Date().getFullYear()} ContestHub. All rights reserved.
+                </p>
             </div>
         </footer>
     );
