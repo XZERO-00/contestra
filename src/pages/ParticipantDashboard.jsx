@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useEvents } from '../context/EventContext';
-import { Compass, CheckCircle, Search, Calendar, MapPin, Users, Ticket, Activity, User } from 'lucide-react';
+import { Compass, CheckCircle, Search, Calendar, MapPin, Users, Ticket, Activity, User, Mail } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const ParticipantDashboard = () => {

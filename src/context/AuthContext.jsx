@@ -135,6 +135,14 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const logout = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error("Logout Error:", error);
+    }
+  };
+
   const resetPassword = async (email) => {
     try {
       await sendPasswordResetEmail(auth, email);
